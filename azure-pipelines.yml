@@ -11,12 +11,7 @@ variables:
 
 steps:
 
-
+- script: dotnet restore
 - script: dotnet build --configuration $(buildConfiguration)
-
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: test
-    projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+- script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+- script: dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
