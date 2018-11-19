@@ -13,5 +13,5 @@ steps:
 
 - script: dotnet restore
 - script: dotnet build --configuration $(buildConfiguration)
-- script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+- script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
 - script: dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
