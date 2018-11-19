@@ -12,9 +12,7 @@ variables:
 steps:
 
 
-- script: 
+- script: |
     dotnet build --configuration $(buildConfiguration)
     dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
     dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
-    
-  displayName: 'dotnet build $(buildConfiguration)'
