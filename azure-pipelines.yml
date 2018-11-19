@@ -19,3 +19,8 @@ steps:
   displayName: 'Test Cases'
 - script: dotnet publish --configuration $(buildConfiguration)
   displayName: 'Publishing'
+
+- task: PublishTestResults@2
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
