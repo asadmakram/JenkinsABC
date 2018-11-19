@@ -12,6 +12,10 @@ variables:
 steps:
 
 - script: dotnet restore
+          displayName: 'Packages Restore'
 - script: dotnet build --configuration $(buildConfiguration)
+          displayName: 'Code Build'
 - script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
+          displayName: 'Test Cases'
 - script: dotnet publish --configuration $(buildConfiguration)
+          displayName: 'Publishing'
