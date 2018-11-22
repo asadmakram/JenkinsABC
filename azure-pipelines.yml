@@ -10,7 +10,7 @@ variables:
   buildConfiguration: 'Release'
   dockerId: 'testjenkinsabcacr'
   dockerPassword: 'WSj50CAdMPaknx+pvuk4HVGGuTHJwRQm'
-  imageName: 'containerapp'
+  imageName: 'liberty-dev-data'
   dockerServer: 'testjenkinsabcacr.azurecr.io'
 
 steps:
