@@ -8,38 +8,38 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  dockerId: 'TestJenkinsABCacr'
+  dockerId: 'testjenkinsabcacr'
   dockerPassword: 'WSj50CAdMPaknx+pvuk4HVGGuTHJwRQm'
-  imageName: 'ContainerApp'
+  imageName: 'containerapp'
 
 steps:
 
-- script: dotnet restore
-  displayName: 'Packages Restore'
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'Code Build'
-- script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
-  displayName: 'Test Cases'
-- script: dotnet publish --configuration $(buildConfiguration)
-  displayName: 'Publishing'
-
-- task: PublishTestResults@2
-  inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
-
-- task: ArchiveFiles@2
-  displayName: "Archive files"
-  inputs:
-    rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
-    includeRootFolder: false
-    archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
-
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
-    name: 'drop'
+#- script: dotnet restore
+#  displayName: 'Packages Restore'
+#- script: dotnet build --configuration $(buildConfiguration)
+#  displayName: 'Code Build'
+#- script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
+#  displayName: 'Test Cases'
+#- script: dotnet publish --configuration $(buildConfiguration)
+#  displayName: 'Publishing'
+#
+#- task: PublishTestResults@2
+#  inputs:
+#    testRunner: VSTest
+#    testResultsFiles: '**/*.trx'
+#
+#- task: ArchiveFiles@2
+#  displayName: "Archive files"
+#  inputs:
+#    rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
+#    includeRootFolder: false
+#    archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
+#
+#
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+#    name: 'drop'
 
 - script: docker build -f ./ContainerApp/Dockerfile -t $(dockerId)/$(imageName) .
   displayName: 'ContainerRelease'
