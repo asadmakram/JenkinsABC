@@ -42,13 +42,13 @@ steps:
 #    PathtoPublish: '$(System.DefaultWorkingDirectory)'
 #    name: 'drop'
 
-#- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerId)/$(imageName) .
-#  displayName: 'ContainerRelease'
+- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerId)/$(imageName) .
+  displayName: 'Container Build'
 
 - script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
   displayName: 'Container Service login'
 #  env:
 #    pswd: $(dockerPassword)
 
-#- script: docker push $(dockerId)/$(imageName)
-#  displayName: 'ContainerRelease'
+- script: docker push $(dockerId)/$(imageName)
+  displayName: 'Container Push'
