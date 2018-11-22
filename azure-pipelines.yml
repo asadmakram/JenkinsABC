@@ -51,8 +51,9 @@ steps:
 #    pswd: $(dockerPassword)
 
 - script: docker image ls
-- script: docker tag $(imageName)/$(imageName) $(dockerId)/$(imageName):part0
-  displayName: 'Container Tag'
+  displayName: 'Containers List'
+#- script: docker tag $(imageName)/$(imageName) $(dockerId)/$(imageName):part0
+#  displayName: 'Container Tag'
 
-- script: docker push $(dockerId)/$(imageName)
+- script: docker push $(dockerId)/$(imageName):latest
   displayName: 'Container Push'
