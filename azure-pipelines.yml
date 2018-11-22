@@ -53,8 +53,8 @@ steps:
 - script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
   displayName: 'Container Service login'
 
-- script: docker tag $(imageName) $(dockerServer)/$(imageName)
-  displayName: 'Container Tag'
+#- script: docker tag $(imageName) $(dockerServer)/$(imageName)
+#  displayName: 'Container Tag'
 
 - script: docker push $(dockerServer)/$(imageName):latest
   displayName: 'Container Push'
