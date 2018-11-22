@@ -16,29 +16,29 @@ variables:
 steps:
 
 - script: dotnet restore
- displayName: 'Packages Restore'
+  displayName: 'Packages Restore'
 - script: dotnet build --configuration $(buildConfiguration)
- displayName: 'Code Build'
+  displayName: 'Code Build'
 - script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
- displayName: 'Test Cases'
+  displayName: 'Test Cases'
 - script: dotnet publish --configuration $(buildConfiguration)
- displayName: 'Publishing'
+  displayName: 'Publishing'
 
 - task: PublishTestResults@2
- inputs:
+  inputs:
    testRunner: VSTest
    testResultsFiles: '**/*.trx'
 
 - task: ArchiveFiles@2
- displayName: "Archive files"
- inputs:
+  displayName: "Archive files"
+  inputs:
    rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
    includeRootFolder: false
    archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
 
 
 - task: PublishBuildArtifacts@1
- inputs:
+  inputs:
    PathtoPublish: '$(System.DefaultWorkingDirectory)'
    name: 'drop'
 
