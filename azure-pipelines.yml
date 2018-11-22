@@ -36,3 +36,11 @@ steps:
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)'
     name: 'drop'
+
+- script: |
+    docker build -f ./my-service/Dockerfile -t $(dockerId)/$(imageName) .
+    docker login -u $(dockerId) -p $pswd
+    docker push $(dockerId)/$(imageName)
+    displayName: 'ContainerRelease'
+  env:
+    pswd: $(dockerPassword)
