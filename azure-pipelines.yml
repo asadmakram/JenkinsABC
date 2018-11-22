@@ -10,7 +10,7 @@ variables:
   buildConfiguration: 'Release'
   dockerId: 'testjenkinsabcacr'
   dockerPassword: 'WSj50CAdMPaknx+pvuk4HVGGuTHJwRQm'
-  imageName: 'liberty-dev-data'
+  imageName: 'containerapp'
   dockerServer: 'testjenkinsabcacr.azurecr.io'
 
 steps:
@@ -42,18 +42,19 @@ steps:
 #    PathtoPublish: '$(System.DefaultWorkingDirectory)'
 #    name: 'drop'
 
+
+#--------------------------------------------------------
+#|                       Docker                         |
+#--------------------------------------------------------
+
 - script: docker build -f ./ContainerApp/Dockerfile -t $(dockerId)/$(imageName) .
   displayName: 'Container Build'
 
 - script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
   displayName: 'Container Service login'
-#  env:
-#    pswd: $(dockerPassword)
 
-- script: docker image ls
-  displayName: 'Containers List'
-#- script: docker tag $(imageName)/$(imageName) $(dockerId)/$(imageName):part0
-#  displayName: 'Container Tag'
+- script: docker tag $(imageName) $(dockerServer)/$(imageName)
+  displayName: 'Container Tag'
 
-- script: docker push $(dockerId)/$(imageName):latest
+- script: docker push $(dockerServer)/$(imageName):latest
   displayName: 'Container Push'
