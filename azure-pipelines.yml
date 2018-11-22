@@ -47,7 +47,7 @@ steps:
 #|                       Docker                         |
 #--------------------------------------------------------
 
-- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerId)/$(imageName) .
+- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerServer)/$(imageName) .
   displayName: 'Container Build'
 
 - script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
