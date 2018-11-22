@@ -50,5 +50,8 @@ steps:
 #  env:
 #    pswd: $(dockerPassword)
 
+- script: docker tag $(imageName) $(dockerId)/$(imageName):part0
+  displayName: 'Container Tag'
+
 - script: docker push $(dockerId)/$(imageName)
   displayName: 'Container Push'
