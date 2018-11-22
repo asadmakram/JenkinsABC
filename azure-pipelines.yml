@@ -8,6 +8,9 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  dockerId: 'TestJenkinsABCacr'
+  dockerPassword: 'WSj50CAdMPaknx+pvuk4HVGGuTHJwRQm'
+  imageName: 'ContainerApp'
 
 steps:
 
