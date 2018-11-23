@@ -10,7 +10,7 @@ variables:
   appName: 'containerapp'
   buildConfiguration: 'Release'
   dockerId: 'pdfservice001acr'
-  dockerPassword: 'WSj50CAdMPaknx+pvuk4HVGGuTHJwRQm'
+  dockerPassword: 'BhSTZBNtVYgjsGn2Q+HtecyukjwQccrR'
   imageName: '$(appName):$(Build.BuildId)'
   dockerServer: '$(dockerId).azurecr.io'
 
