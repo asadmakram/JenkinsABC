@@ -7,11 +7,12 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
+  appName: 'containerapp'
   buildConfiguration: 'Release'
   dockerId: 'testjenkinsabcacr'
   dockerPassword: 'WSj50CAdMPaknx+pvuk4HVGGuTHJwRQm'
-  imageName: 'containerapp'
-  dockerServer: 'testjenkinsabcacr.azurecr.io'
+  imageName: '$(appName):$(Build.BuildId)'
+  dockerServer: '$(dockerId).azurecr.io'
 
 steps:
 
@@ -53,8 +54,5 @@ steps:
 - script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
   displayName: 'Container Service login'
 
-- script: docker push $(dockerServer)/$(imageName):latest
+- script: docker push $(dockerServer)/$(imageName)
   displayName: 'Container Push'
-
-- script: docker run -p $(dockerServer)/$(imageName):latest
-  displayName: 'Container Start'
