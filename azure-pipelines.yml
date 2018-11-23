@@ -17,7 +17,7 @@ variables:
 steps:
 
 - script: dotnet restore
-   displayName: 'Packages Restore'
+  displayName: 'Packages Restore'
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'Code Build'
