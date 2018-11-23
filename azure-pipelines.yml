@@ -9,7 +9,7 @@ pool:
 variables:
   appName: 'containerapp'
   buildConfiguration: 'Release'
-  dockerId: 'testjenkinsabcacr'
+  dockerId: 'pdfservice001acr'
   dockerPassword: 'WSj50CAdMPaknx+pvuk4HVGGuTHJwRQm'
   imageName: '$(appName):$(Build.BuildId)'
   dockerServer: '$(dockerId).azurecr.io'
