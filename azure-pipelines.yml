@@ -62,6 +62,6 @@ steps:
   displayName: 'Container Push'
 
 
-- script: kubectl apply -f ./azure-pdf-service-001-redis.yaml
+- script: kubectl apply -f ./pod.yaml
   displayName: 'deploying to Kubernetes'
 
