@@ -61,7 +61,7 @@ steps:
 - script: docker push $(dockerServer)/$(imageName)
   displayName: 'Container Push'
 
-- script: kubectl apply -f ./pod.yaml
+- script: kubectl apply -f ./pod.yaml --v=10
   displayName: 'deploying to Kubernetes'
 
 
