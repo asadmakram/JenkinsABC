@@ -52,7 +52,7 @@ steps:
 #|                       Docker                         |
 #--------------------------------------------------------
 
-- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerServer)/$(imageName) .
+- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerServer)/$(imageName) . 
   displayName: 'Container Build'
 
 - script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
@@ -64,6 +64,9 @@ steps:
 - script: ls -l
   displayName: 'deploying to Kubernetes'
 
-- script: kubectl apply -f ./pod.yaml
+#- script: kubectl apply -f ./pod.yaml
+#  displayName: 'deploying to Kubernetes'
+
+- script: kubectl run my-app --image=$(dockerServer)/$(imageName) --port=3000
   displayName: 'deploying to Kubernetes'
 
