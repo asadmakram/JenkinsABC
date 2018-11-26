@@ -17,56 +17,52 @@ variables:
 
 steps:
 
-- script: dotnet restore
-  displayName: 'Packages Restore'
+# - script: dotnet restore
+  # displayName: 'Packages Restore'
 
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'Code Build'
+# - script: dotnet build --configuration $(buildConfiguration)
+  # displayName: 'Code Build'
 
-- script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
-  displayName: 'Test Cases'
+# - script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
+  # displayName: 'Test Cases'
 
-- script: dotnet publish --configuration $(buildConfiguration)
-  displayName: 'Publishing'
+# - script: dotnet publish --configuration $(buildConfiguration)
+  # displayName: 'Publishing'
 
-- task: PublishTestResults@2
-  inputs:
-   testRunner: VSTest
-   testResultsFiles: '**/*.trx'
+# - task: PublishTestResults@2
+  # inputs:
+   # testRunner: VSTest
+   # testResultsFiles: '**/*.trx'
 
-- task: ArchiveFiles@2
-  displayName: "Archive files"
-  inputs:
-   rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
-   includeRootFolder: false
-   archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
-
-
-- task: PublishBuildArtifacts@1
-  inputs:
-   PathtoPublish: '$(System.DefaultWorkingDirectory)'
-   name: 'drop'
+# - task: ArchiveFiles@2
+  # displayName: "Archive files"
+  # inputs:
+   # rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
+   # includeRootFolder: false
+   # archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
 
 
-#--------------------------------------------------------
-#|                       Docker                         |
-#--------------------------------------------------------
+# - task: PublishBuildArtifacts@1
+  # inputs:
+   # PathtoPublish: '$(System.DefaultWorkingDirectory)'
+   # name: 'drop'
 
-- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerServer)/$(imageName) . 
-  displayName: 'Container Build'
 
-- script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
-  displayName: 'Container Service login'
+# #--------------------------------------------------------
+# #|                       Docker                         |
+# #--------------------------------------------------------
 
-- script: docker push $(dockerServer)/$(imageName)
-  displayName: 'Container Push'
+# - script: docker build -f ./ContainerApp/Dockerfile -t $(dockerServer)/$(imageName) . 
+  # displayName: 'Container Build'
 
-- script: ls -l
+# - script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
+  # displayName: 'Container Service login'
+
+# - script: docker push $(dockerServer)/$(imageName)
+  # displayName: 'Container Push'
+
+- script: kubectl apply -f ./pod.yaml
   displayName: 'deploying to Kubernetes'
 
-#- script: kubectl apply -f ./pod.yaml
-#  displayName: 'deploying to Kubernetes'
 
-- script: kubectl run my-app --image=$(dockerServer)/$(imageName) --port=3000
-  displayName: 'deploying to Kubernetes'
 
