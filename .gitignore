@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/FunctionTestHelper/obj
+/DotNet.Test/obj
+/ContainerApp/obj
+/.vs
