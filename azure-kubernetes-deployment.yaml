@@ -1,0 +1,42 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: containerapp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: containerapp
+    spec:
+      containers:
+      - name: containerapp
+        image: pdfservice112acr.azurecr.io/containerapp:v1
+        ports:
+        - containerPort: 80
+        env:
+        - name: REDIS
+          value: "containerapp"
+      imagePullSecrets:
+        - name: acr-auth
+---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: containerapp
+#spec:
+#  ports:
+#  - port: 6379
+#  selector:
+#    app: containerapp
+#---
+apiVersion: v1
+kind: Service
+metadata:
+  name: containerapp
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: containerapp
