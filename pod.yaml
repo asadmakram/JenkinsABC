@@ -1,31 +1,13 @@
-apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: pdf-service-001-back
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: pdf-service-001-back
-    spec:
-      containers:
-      - name: pdf-service-001-back
-        image: redis
-        ports:
-        - containerPort: 6379
-          name: redis
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: pdf-service-001-back
-spec:
-  ports:
-  - port: 6379
-  selector:
-    app: pdf-service-001-back
----
+namespace: helm-namespace
+buildId: 1
+web:
+  image:
+    dockerHubId: pdfservice001acr.azurecr.io
+    name: pdf-service-001
+    tag: v2.848
+    replicaCount: 1
+  port: 80
+
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
@@ -43,8 +25,8 @@ spec:
         app: pdf-service-001
     spec:
       containers:
-      - name: pdf-service-001
-        image: pdfservice001acr.azurecr.io/pdf-service-001:v1
+      - name: containerapp
+        image: pdfservice001acr.azurecr.io/containerapp:v1
         ports:
         - containerPort: 80
         resources:
@@ -54,15 +36,5 @@ spec:
             cpu: 500m
         env:
         - name: REDIS
-          value: "pdf-service-001-back"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: pdf-service-001
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-  selector:
-    app: pdf-service-001
+          value: "containerapp-back"
+
