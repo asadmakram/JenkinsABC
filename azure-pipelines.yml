@@ -17,9 +17,9 @@ variables:
 
 resources:
   containers:
-  - container: $(dockerServer)/$(imageName)
-    image: $(dockerServer)/$(imageName)
-    endpoint: $(dockerServer)
+  - container: '$(dockerServer)/$(imageName)'
+    image: '$(dockerServer)/$(imageName)'
+    endpoint: '$(dockerServer)'
 
 steps:
 #
