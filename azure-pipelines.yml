@@ -72,4 +72,4 @@ steps:
     useConfigurationFile: true
     configuration: ./azure-kubernetes-deployment.yaml
     command: apply
-    azureSubscriptionEndpoint: $(dockerServer)
+    azureSubscriptionEndpoint: pdfservice112acr.azurecr.io
