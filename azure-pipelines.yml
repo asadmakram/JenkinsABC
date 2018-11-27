@@ -15,6 +15,12 @@ variables:
   imageName: '$(appName):v1'
   dockerServer: '$(dockerId).azurecr.io'
 
+resources:
+  containers:
+  - container: $(dockerServer)/$(imageName)
+    image: $(dockerServer)/$(imageName)
+    endpoint: $(dockerServer)
+
 steps:
 #
 #- script: dotnet restore
