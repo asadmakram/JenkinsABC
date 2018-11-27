@@ -3,18 +3,18 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-#pool:
-#  vmImage: 'Ubuntu 16.04'
-#
-#variables:
-#  appName: 'containerapp'
-#  buildConfiguration: 'Release'
-#  dockerId: 'pdfservice112acr'
-#  dockerPassword: '/m4RGk3Unu5nvjoRKVlIxNK8gk9gszo0'
-##  imageName: '$(appName):$(Build.BuildId)'
-#  imageName: '$(appName):v1'
-#  dockerServer: '$(dockerId).azurecr.io'
-#
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+variables:
+  appName: 'containerapp'
+  buildConfiguration: 'Release'
+  dockerId: 'pdfservice112acr'
+  dockerPassword: '/m4RGk3Unu5nvjoRKVlIxNK8gk9gszo0'
+#  imageName: '$(appName):$(Build.BuildId)'
+  imageName: '$(appName):v1'
+  dockerServer: '$(dockerId).azurecr.io'
+
 #steps:
 #
 #- script: dotnet restore
