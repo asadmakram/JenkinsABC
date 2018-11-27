@@ -72,3 +72,4 @@ steps:
     useConfigurationFile: true
     configuration: ./azure-kubernetes-deployment.yaml
     command: apply
+    azureSubscriptionEndpoint: af2e0df6-9d6d-4147-913f-7d42dc282f13
