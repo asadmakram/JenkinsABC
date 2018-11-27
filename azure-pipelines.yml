@@ -71,4 +71,4 @@ steps:
   inputs: 
     useConfigurationFile: false
     configuration: ./azure-kubernetes-deployment.yaml
-    kubernetesServiceEndpoint: af2e0df6-9d6d-4147-913f-7d42dc282f13
+    kubernetesServiceEndpoint: 168.61.47.91
