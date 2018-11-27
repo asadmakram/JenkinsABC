@@ -74,5 +74,5 @@ steps:
     useConfigurationFile: true
     configuration: ./azure-kubernetes-deployment.yaml
     command: apply
-    kubernetesServiceEndpoint: containerapp:80
+    kubernetesServiceEndpoint: containerapp:30924
     #azureSubscriptionEndpoint: https://pdfservice-pdfservice112-rg-af2e0d-5661585e.hcp.eastus.azmk8s.io:443
