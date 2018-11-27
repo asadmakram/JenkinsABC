@@ -61,8 +61,6 @@ variables:
 #- script: docker push $(dockerServer)/$(imageName)
 #  displayName: 'Container Push'
 #
-- script: az aks get-credentials -n $(dockerId)-cluster -g $(dockerId)-rg
-  displayName: 'Kubernetes credentials'
 
 - script: kubectl apply -f ./azure-kubernetes-deployment.yaml
   displayName: 'deploying to Kubernetes'
