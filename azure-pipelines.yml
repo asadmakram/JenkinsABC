@@ -70,9 +70,9 @@ steps:
 
 - task: Kubernetes@1
   inputs: 
-    connectionType: none
+    #connectionType: none
     useConfigurationFile: true
     configuration: ./azure-kubernetes-deployment.yaml
     command: apply
-    kubernetesServiceEndpoint: containerapp:30924
-    #azureSubscriptionEndpoint: https://pdfservice-pdfservice112-rg-af2e0d-5661585e.hcp.eastus.azmk8s.io:443
+    #kubernetesServiceEndpoint: containerapp:30924
+    azureSubscriptionEndpoint: /subscriptions/af2e0df6-9d6d-4147-913f-7d42dc282f13/resourcegroups/pdfservice112-rg/providers/Microsoft.ContainerService/managedClusters/pdfservice112-cluster
