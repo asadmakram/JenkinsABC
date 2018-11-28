@@ -74,7 +74,7 @@ steps:
 - script: ls -l
   displayName: 'deploying to Kubernetes'
 
-- bash: RUN chmod +x /deploy-kubectl.sh
+- bash: chmod +x /deploy-kubectl.sh
   displayName: 'chnage mode to +x'
 
 - bash: /deploy-kubectl.sh
