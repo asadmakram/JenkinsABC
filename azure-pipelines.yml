@@ -70,9 +70,11 @@ steps:
 ##- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
 ##  displayName: 'deploying to Kubernetes'
 
+- script: az aks get-credentials --resource-group pdfservice112acr-rg --name pdfservice112acr-cluster
+  displayName: 'az aks get-credentials'
+
 - script: kubectl config view
   displayName: 'deploying to Kubernetes'
-
 #- task: Kubernetes@1
 #  inputs: 
 #    #connectionType: none
