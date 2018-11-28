@@ -70,8 +70,8 @@ steps:
 ##- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
 ##  displayName: 'deploying to Kubernetes'
 
-- script: az login
-  displayName: 'az aks get-credentials'
+- script: az login -u asad.akram@contour-software.com -p Abcd12345678@
+  displayName: 'az login'
 
 - script: az aks get-credentials --resource-group pdfservice112acr-rg --name pdfservice112acr-cluster
   displayName: 'az aks get-credentials'
