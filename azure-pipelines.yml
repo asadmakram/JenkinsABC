@@ -70,10 +70,7 @@ steps:
 ##- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
 ##  displayName: 'deploying to Kubernetes'
 
-- script: kubectl config set-cluster pdfservice112-cluster --insecure-skip-tls-verify=true
-  displayName: 'Kubernetes config'
-
-- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
+- script: kubectl apply -f ./azure-kubernetes-deployment.yml
   displayName: 'deploying to Kubernetes'
 
 #- task: Kubernetes@1
