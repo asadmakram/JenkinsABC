@@ -72,6 +72,9 @@ steps:
 
 - script: kubectl config view
   displayName: 'deploying to Kubernetes'
+
+- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
+  displayName: 'deploying to Kubernetes'
 #- task: Kubernetes@1
 #  inputs: 
 #    #connectionType: none
