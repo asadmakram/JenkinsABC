@@ -20,7 +20,7 @@ echo Loging in to ACR
 call az acr login --name %acrName%
 
 echo Enabled admin access for cluster (%clusterName%)
-az acr update -n %acrName% --admin-enabled true
+call az acr update -n %acrName% --admin-enabled true
 
 echo creating AKS - cluster (%clusterName%) with nodes (%nodeCount%)
 call az aks create --resource-group %resourceGroupName% --name %clusterName% --node-count %nodeCount% --generate-ssh-keys
