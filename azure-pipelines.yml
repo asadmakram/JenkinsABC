@@ -74,10 +74,7 @@ steps:
 - script: ls -l
   displayName: 'deploying to Kubernetes'
 
-- bash: chmod +x /deploy-kubectl.sh
-  displayName: 'chnage mode to +x'
-
-- bash: /deploy-kubectl.sh
+- bash: bash /deploy-kubectl.sh
   displayName: 'getting kubectl credentials'
 
 - script: kubectl apply -f ./azure-kubernetes-deployment.yml
