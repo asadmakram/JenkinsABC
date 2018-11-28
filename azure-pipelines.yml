@@ -70,7 +70,7 @@ steps:
 ##- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
 ##  displayName: 'deploying to Kubernetes'
 
-- script: kubectl config set pdfservice112-cluster
+- script: kubectl get serviceinstance
   displayName: 'deploying to Kubernetes'
 
 - script: kubectl apply -f ./azure-kubernetes-deployment.yaml
