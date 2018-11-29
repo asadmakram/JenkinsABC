@@ -87,7 +87,7 @@ steps:
                - name: REDIS
                  value: '$(appName)'
              imagePullSecrets:
-               - name: 'acr-auth'
+             - name: 'acr-auth'
         apiVersion: v1
         kind: Service
         metadata:
