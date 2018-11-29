@@ -17,7 +17,7 @@ variables:
   dockerServer: '$(dockerId).azurecr.io'
   resourcegroupName: '$(baseName)-rg'
   clusterName: '$(baseName)-cluster'
-  yamlFileContent: ""
+  AKS.KubeDeploymentYaml: '$(System.DefaultWorkingDirectory)/azure-kubernetes-deployment.yml'
 steps:
 
 #- script: dotnet restore
@@ -112,6 +112,10 @@ steps:
           selector:
             app: '$(appName)'"
 
+
+  Set-Content -Path $(AKS.KubeDeploymentYaml) -Value $yamlFileContent 
+  displayName: 'Generate kubernetes deployment yaml'
+
 - task: Kubernetes@1
   displayName: 'kubectl apply'
   inputs:
@@ -120,4 +124,4 @@ steps:
     kubernetesCluster: '$(clusterName)'
     #useConfigurationFile: true
     #configuration: azure-kubernetes-deployment.yml
-    arguments: '-f $(yamlFileContent)'
+    arguments: '-f $AKS.KubeDeploymentYaml'
