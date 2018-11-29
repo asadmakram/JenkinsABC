@@ -88,17 +88,6 @@ steps:
                  value: '$(appName)'
              imagePullSecrets:
                - name: acr-auth
-        ---
-        #apiVersion: v1
-        #kind: Service
-        #metadata:
-        #  name: containerapp
-        #spec:
-        #  ports:
-        #  - port: 6379
-        #  selector:
-        #    app: containerapp
-        #---
         apiVersion: v1
         kind: Service
         metadata:
