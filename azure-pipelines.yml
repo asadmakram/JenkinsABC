@@ -80,7 +80,7 @@ steps:
            spec:
              containers:
              - name: '$(appName)'
-               image: '$(dockerServer)/$(appName):$(Build.BuildId)'
+               image: '$(dockerServer)/$(imageName)'
                ports:
                - containerPort: 80
                env:
@@ -112,8 +112,7 @@ steps:
           selector:
             app: '$(appName)'"
 
-
-    Set-Content -Path $(AKS.KubeDeploymentYaml) -Value $yamlFileContent 
+       Set-Content -Path $(AKS.KubeDeploymentYaml) -Value $yamlFileContent 
   displayName: 'Generate kubernetes deployment yaml'
 
 - task: Kubernetes@1
