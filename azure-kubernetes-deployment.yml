@@ -1,22 +1,22 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: containerapp
+  name: $(appName)
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: containerapp
+        app: $(appName)
     spec:
       containers:
-      - name: containerapp
-        image: pdfservice112acr.azurecr.io/containerapp:v1
+      - name: $(appName)
+        image: $(dockerServer)/$(appName):$(Build.BuildId)
         ports:
         - containerPort: 80
         env:
         - name: REDIS
-          value: "containerapp"
+          value: "$(appName)"
       imagePullSecrets:
         - name: acr-auth
 ---
@@ -33,10 +33,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: containerapp
+  name: $(appName)
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
   ports:
   - port: 80
   selector:
-    app: containerapp
+    app: $(appName)
