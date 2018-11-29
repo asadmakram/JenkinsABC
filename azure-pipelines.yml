@@ -87,7 +87,7 @@ steps:
                - name: REDIS
                  value: '$(appName)'
              imagePullSecrets:
-               - name: acr-auth
+               - name: 'acr-auth'
         apiVersion: v1
         kind: Service
         metadata:
@@ -103,6 +103,9 @@ steps:
 
        Set-Content -Path $(AKS.KubeDeploymentYaml) -Value $yamlFileContent 
   displayName: 'Generate kubernetes deployment yaml'
+
+- script: cat $(AKS.KubeDeploymentYaml)
+  displayName: 'CAT'
 
 - task: Kubernetes@1
   displayName: 'kubectl apply'
