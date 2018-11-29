@@ -66,51 +66,51 @@ steps:
 
   ##- script: kubectl apply -f ./azure-kubernetes-deployment.yml
 
-  - script |
-    "$(yamlFileContent)=$(yamlFileContent)apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: '$(appName)'
-spec:
-  replicas: 1
-  template:
+- powershell: |  
+       $kubeDeploymentYaml="apiVersion: apps/v1beta1
+    kind: Deployment
     metadata:
-      labels:
-        app: '$(appName)'
+      name: '$(appName)'
     spec:
-      containers:
-      - name: '$(appName)'
-        image: '$(dockerServer)/$(appName):$(Build.BuildId)''
-        ports:
-        - containerPort: 80
-        env:
-        - name: REDIS
-          value: '$(appName)'
-      imagePullSecrets:
-        - name: acr-auth
----
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: containerapp
-#spec:
-#  ports:
-#  - port: 6379
-#  selector:
-#    app: containerapp
-#---
-apiVersion: v1
-kind: Service
-metadata:
-  name: '$(appName)'
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-  selector:
-    app: '$(appName)'"
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: '$(appName)'
+        spec:
+          containers:
+          - name: '$(appName)'
+            image: '$(dockerServer)/$(appName):$(Build.BuildId)'
+            ports:
+            - containerPort: 80
+            env:
+            - name: REDIS
+              value: '$(appName)'
+          imagePullSecrets:
+            - name: acr-auth
+    ---
+    #apiVersion: v1
+    #kind: Service
+    #metadata:
+    #  name: containerapp
+    #spec:
+    #  ports:
+    #  - port: 6379
+    #  selector:
+    #    app: containerapp
+    #---
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: '$(appName)'
+      annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
+    spec:
+      type: LoadBalancer
+      ports:
+      - port: 80
+      selector:
+        app: '$(appName)'"
   displayName: 'kubectl yaml preparation'
 
 - script: cat $(yamlFileContent)
