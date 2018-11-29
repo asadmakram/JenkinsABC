@@ -89,17 +89,17 @@ steps:
              imagePullSecrets:
              - name: acr-auth
        apiVersion: v1
-         kind: Service
-         metadata:
-           name: $(appName)
-           annotations:
-             service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
-         spec:
-           type: LoadBalancer
-           ports:
-           - port: 80
-           selector:
-             app: $(appName)"
+       kind: Service
+       metadata:
+         name: $(appName)
+         annotations:
+           service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
+       spec:
+         type: LoadBalancer
+         ports:
+         - port: 80
+         selector:
+           app: $(appName)"
 
        Set-Content -Path $(AKS.KubeDeploymentYaml) -Value $yamlFileContent 
   displayName: 'Generate kubernetes deployment yaml'
