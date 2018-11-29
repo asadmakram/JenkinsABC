@@ -123,4 +123,4 @@ steps:
     kubernetesCluster: '$(clusterName)'
     #useConfigurationFile: true
     #configuration: azure-kubernetes-deployment.yml
-    arguments: '-f $AKS.KubeDeploymentYaml'
+    arguments: '-f $(AKS.KubeDeploymentYaml)'
