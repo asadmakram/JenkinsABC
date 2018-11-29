@@ -111,7 +111,7 @@ steps:
           - port: 80
           selector:
             app: '$(appName)'"
-      displayName: 'kubectl yaml preparation'
+        displayName: 'kubectl yaml preparation'
 
 - script: cat $(yamlFileContent)
 
