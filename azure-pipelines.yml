@@ -7,7 +7,7 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
-  appName: 'hijavi'
+  appName: 'containerabc'
   buildConfiguration: 'Release'
   baseName: 'pdfservice112'
   dockerId: '$(baseName)acr'
