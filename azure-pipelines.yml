@@ -87,6 +87,6 @@ steps:
     azureSubscriptionEndpoint: 'Free Trial (af2e0df6-9d6d-4147-913f-7d42dc282f13)'
     azureResourceGroup: 'pdfservice112-rg'
     kubernetesCluster: 'pdfservice112-cluster'
-    useConfigurationFile: true
-    configuration: ./azure-kubernetes-deployment.yaml
-    #arguments: '-f ../azure-kubernetes-deployment.yaml'
+    #useConfigurationFile: true
+    #configuration: azure-kubernetes-deployment.yaml
+    arguments: '-f azure-kubernetes-deployment.yaml'
