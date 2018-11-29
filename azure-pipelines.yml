@@ -71,14 +71,6 @@ steps:
 ##  displayName: 'deploying to Kubernetes'
 
 
-- script: ls -l
-  displayName: 'deploying to Kubernetes'
-
-- bash: bash ./deploy-kubectl.sh
-  displayName: 'getting kubectl credentials'
-
-- script: kubectl apply -f ./azure-kubernetes-deployment.yml
-  displayName: 'deploying to Kubernetes'
 
 #- task: Kubernetes@1
 #  inputs: 
@@ -88,3 +80,11 @@ steps:
 #    command: apply
 #    #kubernetesServiceEndpoint: containerapp:30924
 #    azureSubscriptionEndpoint: /subscriptions/af2e0df6-9d6d-4147-913f-7d42dc282f13/resourcegroups/pdfservice112-rg/providers/Microsoft.ContainerService/managedClusters/pdfservice112-cluster
+
+- task: Kubernetes@1
+  displayName: 'kubectl apply'
+  inputs:
+    azureSubscriptionEndpoint: 'kuberenetes-endpoint'
+    azureResourceGroup: 'pdfservice112-rg'
+    kubernetesCluster: 'pdfservice112-cluster'
+    arguments: '-f ./azure-kubernetes-deployment.yaml'
