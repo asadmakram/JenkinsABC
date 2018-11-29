@@ -7,7 +7,7 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
-  appName: 'containerapp'
+  appName: 'hiJavi'
   buildConfiguration: 'Release'
   baseName: 'pdfservice112'
   dockerId: '$(baseName)acr'
@@ -20,51 +20,49 @@ variables:
   AKS.KubeDeploymentYaml: '$(System.DefaultWorkingDirectory)/file1.yml'
 steps:
 
-#- script: dotnet restore
-#  displayName: 'Packages Restore'
-#
-#- script: dotnet build --configuration $(buildConfiguration)
-#  displayName: 'Code Build'
-#
-#- script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
-#  displayName: 'Test Cases'
-#
-#- script: dotnet publish --configuration $(buildConfiguration)
-#  displayName: 'Publishing'
-#
-#- task: PublishTestResults@2
-#  inputs:
-#   testRunner: VSTest
-#   testResultsFiles: '**/*.trx'
-#
-#- task: ArchiveFiles@2
-#  displayName: "Archive files"
-#  inputs:
-#   rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
-#   includeRootFolder: false
-#   archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
-#
-#
-#- task: PublishBuildArtifacts@1
-#  inputs:
-#   PathtoPublish: '$(System.DefaultWorkingDirectory)'
-#   name: 'drop'
-#
-#
-##--------------------------------------------------------
-##|                       Docker                         |
-##--------------------------------------------------------
-#
-#- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerServer)/$(imageName) . 
-#  displayName: 'Container Build'
-#
-#- script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
-#  displayName: 'Container Service login'
-#
-#- script: docker push $(dockerServer)/$(imageName)
-#  displayName: 'Container Push'
+- script: dotnet restore
+  displayName: 'Packages Restore'
 
-  ##- script: kubectl apply -f ./azure-kubernetes-deployment.yml
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'Code Build'
+
+- script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
+  displayName: 'Test Cases'
+
+- script: dotnet publish --configuration $(buildConfiguration)
+  displayName: 'Publishing'
+
+- task: PublishTestResults@2
+  inputs:
+   testRunner: VSTest
+   testResultsFiles: '**/*.trx'
+
+- task: ArchiveFiles@2
+  displayName: "Archive files"
+  inputs:
+   rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
+   includeRootFolder: false
+   archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
+
+
+- task: PublishBuildArtifacts@1
+  inputs:
+   PathtoPublish: '$(System.DefaultWorkingDirectory)'
+   name: 'drop'
+
+
+#--------------------------------------------------------
+#|                       Docker                         |
+#--------------------------------------------------------
+
+- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerServer)/$(imageName) . 
+  displayName: 'Container Build'
+
+- script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
+  displayName: 'Container Service login'
+
+- script: docker push $(dockerServer)/$(imageName)
+  displayName: 'Container Push'
 
 - powershell: |  
        $yamlFileContent="apiVersion: apps/v1beta1
@@ -113,6 +111,4 @@ steps:
     azureSubscriptionEndpoint: 'Free Trial (af2e0df6-9d6d-4147-913f-7d42dc282f13)'
     azureResourceGroup: '$(resourcegroupName)'
     kubernetesCluster: '$(clusterName)'
-    #useConfigurationFile: true
-    #configuration: azure-kubernetes-deployment.yml
     arguments: '-f $(AKS.KubeDeploymentYaml)'
