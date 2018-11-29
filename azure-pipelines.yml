@@ -113,7 +113,7 @@ steps:
             app: '$(appName)'"
 
 
-  Set-Content -Path $(AKS.KubeDeploymentYaml) -Value $yamlFileContent 
+    Set-Content -Path $(AKS.KubeDeploymentYaml) -Value $yamlFileContent 
   displayName: 'Generate kubernetes deployment yaml'
 
 - task: Kubernetes@1
