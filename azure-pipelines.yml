@@ -64,12 +64,10 @@ steps:
 #
 
 
-##- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
+##- script: kubectl apply -f ./azure-kubernetes-deployment.yml
 ##  displayName: 'deploying to Kubernetes'
 
-- script: |
-    pwd
-    ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+- script: kubectl apply -f ./azure-kubernetes-deployment.yml
   displayName: 'deploying to Kubernetes'
 
 
@@ -78,7 +76,7 @@ steps:
 #  inputs: 
 #    #connectionType: none
 #    useConfigurationFile: true
-#    configuration: ./azure-kubernetes-deployment.yaml
+#    configuration: ./azure-kubernetes-deployment.yml
 #    command: apply
 #    #kubernetesServiceEndpoint: containerapp:30924
 #    azureSubscriptionEndpoint: /subscriptions/af2e0df6-9d6d-4147-913f-7d42dc282f13/resourcegroups/pdfservice112-rg/providers/Microsoft.ContainerService/managedClusters/pdfservice112-cluster
