@@ -111,4 +111,5 @@ steps:
     azureSubscriptionEndpoint: 'Free Trial (af2e0df6-9d6d-4147-913f-7d42dc282f13)'
     azureResourceGroup: '$(resourcegroupName)'
     kubernetesCluster: '$(clusterName)'
+    command: create
     arguments: '-f $(AKS.KubeDeploymentYaml)'
