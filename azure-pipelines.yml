@@ -90,8 +90,8 @@ steps:
        kind: Service
        metadata:
          name: $(appName)
-         annotations:
-           service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
+         #annotations:
+         #  service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
        spec:
          type: LoadBalancer
          ports:
