@@ -112,8 +112,6 @@ steps:
           selector:
             app: '$(appName)'"
 
-- script: cat $(yamlFileContent)
-
 - task: Kubernetes@1
   displayName: 'kubectl apply'
   inputs:
