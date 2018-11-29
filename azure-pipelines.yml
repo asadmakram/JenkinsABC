@@ -9,84 +9,69 @@ pool:
 variables:
   appName: 'containerapp'
   buildConfiguration: 'Release'
-  dockerId: 'pdfservice112acr'
+  baseName: 'pdfservice112'
+  dockerId: '$(baseName)acr'
   dockerPassword: '/m4RGk3Unu5nvjoRKVlIxNK8gk9gszo0'
 #  imageName: '$(appName):$(Build.BuildId)'
   imageName: '$(appName):v1'
   dockerServer: '$(dockerId).azurecr.io'
-
+  resourcegroupName: '$(baseName)-rg'
+  clusterName: '$(baseName)-cluster'
 
 steps:
-#
-#- script: dotnet restore
-#  displayName: 'Packages Restore'
-#
-#- script: dotnet build --configuration $(buildConfiguration)
-#  displayName: 'Code Build'
-#
-#- script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
-#  displayName: 'Test Cases'
-#
-#- script: dotnet publish --configuration $(buildConfiguration)
-#  displayName: 'Publishing'
-#
-#- task: PublishTestResults@2
-#  inputs:
-#   testRunner: VSTest
-#   testResultsFiles: '**/*.trx'
-#
-#- task: ArchiveFiles@2
-#  displayName: "Archive files"
-#  inputs:
-#   rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
-#   includeRootFolder: false
-#   archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
-#
-#
-#- task: PublishBuildArtifacts@1
-#  inputs:
-#   PathtoPublish: '$(System.DefaultWorkingDirectory)'
-#   name: 'drop'
-#
-#
-##--------------------------------------------------------
-##|                       Docker                         |
-##--------------------------------------------------------
-#
-#- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerServer)/$(imageName) . 
-#  displayName: 'Container Build'
-#
-#- script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
-#  displayName: 'Container Service login'
-#
-#- script: docker push $(dockerServer)/$(imageName)
-#  displayName: 'Container Push'
-#
+
+- script: dotnet restore
+  displayName: 'Packages Restore'
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'Code Build'
+
+- script: dotnet test DotNet.Test --configuration $(buildConfiguration) --logger trx
+  displayName: 'Test Cases'
+
+- script: dotnet publish --configuration $(buildConfiguration)
+  displayName: 'Publishing'
+
+- task: PublishTestResults@2
+  inputs:
+   testRunner: VSTest
+   testResultsFiles: '**/*.trx'
+
+- task: ArchiveFiles@2
+  displayName: "Archive files"
+  inputs:
+   rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
+   includeRootFolder: false
+   archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
 
 
-##- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
-##  displayName: 'deploying to Kubernetes'
-
-##- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
-##  displayName: 'deploying to Kubernetes'
-
+- task: PublishBuildArtifacts@1
+  inputs:
+   PathtoPublish: '$(System.DefaultWorkingDirectory)'
+   name: 'drop'
 
 
-#- task: Kubernetes@1
-#  inputs: 
-#    #connectionType: none
-#    useConfigurationFile: true
-#    configuration: ./azure-kubernetes-deployment.yaml
-#    command: apply
-#    #kubernetesServiceEndpoint: containerapp:30924
-#    azureSubscriptionEndpoint: /subscriptions/af2e0df6-9d6d-4147-913f-7d42dc282f13/resourcegroups/pdfservice112-rg/providers/Microsoft.ContainerService/managedClusters/pdfservice112-cluster
+#--------------------------------------------------------
+#|                       Docker                         |
+#--------------------------------------------------------
+
+- script: docker build -f ./ContainerApp/Dockerfile -t $(dockerServer)/$(imageName) . 
+  displayName: 'Container Build'
+
+- script: docker login -u $(dockerId) -p $(dockerPassword) $(dockerServer)
+  displayName: 'Container Service login'
+
+- script: docker push $(dockerServer)/$(imageName)
+  displayName: 'Container Push'
+
+  ##- script: kubectl apply -f ./azure-kubernetes-deployment.yml
 
 - task: Kubernetes@1
   displayName: 'kubectl apply'
   inputs:
     azureSubscriptionEndpoint: 'Free Trial (af2e0df6-9d6d-4147-913f-7d42dc282f13)'
-    azureResourceGroup: 'pdfservice112-rg'
-    kubernetesCluster: 'pdfservice112-cluster'
+    azureResourceGroup: '$(resourcegroupName)'
+    kubernetesCluster: '$(clusterName)'
     #useConfigurationFile: true
     #configuration: azure-kubernetes-deployment.yml
     arguments: '-f ./azure-kubernetes-deployment.yml'
