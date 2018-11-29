@@ -67,7 +67,7 @@ steps:
 ##- script: kubectl apply -f ./azure-kubernetes-deployment.yaml
 ##  displayName: 'deploying to Kubernetes'
 
-- script:  tree -d /proc/self/
+- script: ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
   displayName: 'deploying to Kubernetes'
 
 
