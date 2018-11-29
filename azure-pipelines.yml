@@ -17,7 +17,7 @@ variables:
   dockerServer: '$(dockerId).azurecr.io'
   resourcegroupName: '$(baseName)-rg'
   clusterName: '$(baseName)-cluster'
-  AKS.KubeDeploymentYaml: '$(System.DefaultWorkingDirectory)/azure-kubernetes-deployment.yml'
+  AKS.KubeDeploymentYaml: '$(System.DefaultWorkingDirectory)/file1.yml'
 steps:
 
 #- script: dotnet restore
@@ -70,28 +70,28 @@ steps:
        $yamlFileContent="apiVersion: apps/v1beta1
        kind: Deployment
        metadata:
-         name: '$(appName)'
+         name: $(appName)
        spec:
          replicas: 1
          template:
            metadata:
              labels:
-               app: '$(appName)'
+               app: $(appName)
            spec:
              containers:
-             - name: '$(appName)'
-               image: '$(dockerServer)/$(imageName)'
+             - name: $(appName)
+               image: $(dockerServer)/$(imageName)
                ports:
                - containerPort: 80
                env:
                - name: REDIS
-                 value: '$(appName)'
+                 value: $(appName)
              imagePullSecrets:
-             - name: 'acr-auth'
+             - name: acr-auth
         apiVersion: v1
         kind: Service
         metadata:
-          name: '$(appName)'
+          name: $(appName)
           annotations:
             service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
         spec:
@@ -99,7 +99,7 @@ steps:
           ports:
           - port: 80
           selector:
-            app: '$(appName)'"
+            app: $(appName)"
 
        Set-Content -Path $(AKS.KubeDeploymentYaml) -Value $yamlFileContent 
   displayName: 'Generate kubernetes deployment yaml'
