@@ -9,9 +9,9 @@ pool:
 variables:
   appName: 'testdeployment'
   buildConfiguration: 'Release'
-  baseName: 'pdfservicea'
+  baseName: 'pdfservicea' # whenever new environment is created
   dockerId: '$(baseName)acr'
-  dockerPassword: '/m4RGk3Unu5nvjoRKVlIxNK8gk9gszo0'
+  dockerPassword: '4GcgsBDP0z=n0=4APJ+mEPX9EiER0Cj2' # whenever new environment is created
   imageName: '$(appName):$(Build.BuildId)'
   #imageName: '$(appName):v1'
   dockerServer: '$(dockerId).azurecr.io'
