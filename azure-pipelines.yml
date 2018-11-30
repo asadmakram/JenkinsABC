@@ -7,7 +7,7 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
-  appName: 'containerapp1234'
+  appName: 'testdeployment'
   buildConfiguration: 'Release'
   baseName: 'pdfservice112'
   dockerId: '$(baseName)acr'
@@ -112,5 +112,5 @@ steps:
     azureSubscriptionEndpoint: 'Free Trial (af2e0df6-9d6d-4147-913f-7d42dc282f13)'
     azureResourceGroup: '$(resourcegroupName)'
     kubernetesCluster: '$(clusterName)'
-    command: create
+    #command: create
     arguments: '-f $(AKS.KubeDeploymentYaml)'
