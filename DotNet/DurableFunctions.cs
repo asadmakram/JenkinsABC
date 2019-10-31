@@ -20,7 +20,6 @@ namespace DotNet
             outputs.Add(await context.CallActivityAsync<string>("DurableFunctions_Hello", "Seattle"));
             outputs.Add(await context.CallActivityAsync<string>("DurableFunctions_Hello", "London"));
 
-            // returns ["Hello Tokyo!", "Hello Seattle!", "Hello London!"]
             return outputs;
         }
 
